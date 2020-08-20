@@ -63,8 +63,25 @@ button {
     width: 70px;
     height: 70px;
     margin: auto;
+    margin-bottom: 250px;
     border: 3px solid black;
     border-radius: 50%;
     font-size: 40px;
     line-height: 60px;
 }
+
+.img__position {
+    position: relative;
+    width: 100%;
+    height: 280px;
+    border: 2px solid black;
+}
+
+.game__img__bug,
+.game__img__carrot {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+}
+
+
