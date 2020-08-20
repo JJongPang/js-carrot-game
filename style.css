@@ -1,0 +1,71 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: black;
+    margin: 0;
+    padding: 30px;
+}
+
+button {
+    outline: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.carrot__game {
+    background-image: url(img/background.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 800px;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.game__start__btn {
+    background-color: bisque;
+    font-size: 25px;
+    width: 70px;
+    height: 70px;
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 5px solid black;
+    border-radius: 10px;
+}
+
+.game__pause__btn {
+    display: none;
+    background-color: bisque;
+    font-size: 25px;
+    width: 70px;
+    height: 70px;
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 5px solid black;
+    border-radius: 10px;
+}
+
+.game__countdown {
+    background-color:#faf9fa;
+    width: 150px;
+    margin: auto;
+    margin-bottom: 15px;
+    border: 5px solid black;
+    border-radius: 10px;
+    font-size: 40px;
+}
+
+.game__check {
+    background-color: #f1ab81;
+    width: 70px;
+    height: 70px;
+    margin: auto;
+    border: 3px solid black;
+    border-radius: 50%;
+    font-size: 40px;
+    line-height: 60px;
+}
