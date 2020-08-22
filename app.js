@@ -4,38 +4,25 @@ const gameHeader = document.querySelector('.game__header');
 const startBtn = document.querySelector('.game__start__btn');
 const sections = document.querySelector('.carrot__game');
 const position = document.querySelector('.game__position');
+const pauseBtn = document.createElement('button');
+
+
 
 startBtn.addEventListener('click', gameStart);
 
 //game start button click
 function gameStart() {
-    const pauseBtn = document.createElement('button');
-    const gameTimeout = document.querySelector('.game__timeout');
-
     startBtn.remove();
-
     pauseBtn.setAttribute('class', 'game__pause__btn');
     pauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
-
     gameHeader.prepend(pauseBtn);
 
-    let timeleft = 0;
-    let downloadTimer = setInterval(function(){
-      gameTimeout.innerHTML = `0 : ${10 - timeleft}`;
-      timeleft += 1;
-
-      if(timeleft > 10){
-        clearInterval(downloadTimer);
-        gameTimeout.innerHTML = '시간초과';
-      }
-    }, 1000);
-
+    timer();
     bugImgPlace();
     removeImg();
 }
 
 function bugImgPlace() {
-
     position.innerHTML =`
     <img src="img/bug.png" alt="bug" class="game__img__bug" data-id="0" type="carrot">
     <img src="img/bug.png" alt="bug" class="game__img__bug" data-id="1" type="buh>
@@ -63,28 +50,77 @@ function bugImgPlace() {
     }
 }
 
+
+//카운트 체크
 let count = 0;
 
+
 function removeImg() {
-    
     position.addEventListener('click', event => {
+        const gameCheck = document.querySelector('.game__check');
         const id = event.target.dataset.id;
         const bug =  document.querySelector(`.game__img__bug[data-id="${id}"]`);
         const carrot =  document.querySelector(`.game__img__carrot[data-id="${id}"]`);
-        const gameCheck = document.querySelector('.game__check');
-        
-        
+        console.log(id);
         if(id < 7) {
             bug.remove();
+            gameLoss();
         }else  {
             carrot.remove();
             count++;
             gameCheck.innerHTML = count;
         }
+
+        if(count === 7) {
+            gameWin();
+        }
     });
 }
 
 
-function reStart() {
+function gameWin() {
+    const rePlayBtn = document.querySelector(".game__replay");
+    const gameWinScreen = document.querySelector(".game__win");
     
+    rePlayBtn.addEventListener('click', () => {
+        gameWinScreen.classList.remove('active');
+        count = 0;
+        gameCheck.innerHTML = count;
+        pauseBtn.remove();
+        
+        gameStart();
+    });
+}
+
+
+function gameLoss() {
+    const gameLossScreen = document.querySelector(".game__loss");
+    gameLossScreen.classList.add('active');
+    
+    rePlayBtn.addEventListener('click', () => {
+        gameWinScreen.classList.remove('active');
+        count = 0;
+        gameCheck.innerHTML = count;
+        pauseBtn.remove();
+
+        gameStart();
+    });
+}
+
+//Timer
+function timer() {
+    const gameTimeout = document.querySelector('.game__timeout');
+
+    let timeleft = 0;
+    let downloadTimer = setInterval(function(){
+      gameTimeout.innerHTML = `0 : ${10 - timeleft}`;
+      timeleft += 1;
+
+      if(timeleft > 10){
+        clearInterval(downloadTimer);
+        gameTimeout.innerHTML = '시간초과';
+      }else if(count === 7) {
+        clearInterval(downloadTimer);
+      }
+    }, 1000);
 }
