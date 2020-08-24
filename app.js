@@ -2,13 +2,104 @@
 
 const field = document.querySelector('.game__field');
 const fieldRect = field.getBoundingClientRect();
-const CARROT_SIZE = 80;
+const gameBtn = document.querySelector('.game__button');
+const gameTimer = document.querySelector('.game__timer');
+const gameScore = document.querySelector('.game__score');
+const popUp = document.querySelector('.pop-up');
+const popUpText = document.querySelector('.pop-up__message');
+const popUpRefresh = document.querySelector('.pop-up__refresh');
 
+
+const CARROT_SIZE = 80;
+const CARROT_COUNT = 5;
+const BUG_COUNT = 5;
+const GAME_DURATION_SEC = 5;
+
+let started = false;
+let score = 0;
+let timer = undefined;
+
+gameBtn.addEventListener('click', () => {
+    if(started) {
+        stopGame();
+    }else {
+        startGame();
+    }
+    started =! started;
+});
+
+//start game
+function startGame() {
+    initGame();
+    showStopButton();
+    showTimerAndScore();
+    startGameTimer();
+}
+
+//stop game
+function stopGame() {
+    stopGameTimer();
+}
+
+//view stop button
+function showStopButton() {
+    const icon = gameBtn.querySelector('.fa-play');
+    icon.classList.add('fa-stop');
+    icon.classList.remove('fa-play');
+}
+
+function hideGameButton() {
+    gameBtn.style.visibility = 'hidden';
+}
+
+//Timer and Score view(visible)
+function showTimerAndScore() {
+    gameTimer.style.visibility = 'visible';
+    gameScore.style.visibility = 'visible';
+}
+
+//Start Timter 
+function startGameTimer() {
+    let remainingTimeSec = GAME_DURATION_SEC;
+    updateTimeText(remainingTimeSec);   
+    timer = setInterval(() => {
+        if(remainingTimeSec <= 0) {
+            clearInterval(timer);
+            return;
+        }
+        updateTimeText(--remainingTimeSec);
+    }, 1000);
+}
+
+//Stop Timer
+function stopGameTimer() {
+    clearInterval(timer);
+    hideGameButton();
+    showPopUpWidthText('REPLAY?');
+}
+
+//Timer
+function updateTimeText(time) {
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 6;
+    gameTimer.innerHTML = `${minutes}:${seconds}`;
+}
+
+function showPopUpWidthText(text) {
+    popUpText.innerHTML = text;
+    popUp.classList.remove('pop-up--hide');
+}
+
+//Item 배치
 function initGame() {
+    field.innerHTML = '';
+    gameScore.innerHTML = CARROT_COUNT;
+
     addItem('carrot', 5, 'img/carrot.png');
     addItem('bug', 5, 'img/bug.png');
 }
 
+//Item 좌표
 function addItem(className, count, imgPath) {
     const x1 = 0;
     const y1 = 0;
@@ -33,7 +124,6 @@ function randomNumber(min, max) {
     return Math.random() * (max - min) + min;
 }
 
-initGame();
 // const gameHeader = document.querySelector('.game__header');
 // const startBtn = document.querySelector('.game__start__btn');
 // const sections = document.querySelector('.carrot__game');
