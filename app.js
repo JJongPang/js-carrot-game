@@ -6,6 +6,11 @@ const sections = document.querySelector('.carrot__game');
 const position = document.querySelector('.game__position');
 const pauseBtn = document.createElement('button');
 
+// function check() {
+
+//     // 종현아 부탁한다.....function check 이거하나만 마무리해줭!!!! 
+
+// }
 
 
 startBtn.addEventListener('click', gameStart);
@@ -64,7 +69,6 @@ function removeImg() {
         console.log(id);
         if(id < 7) {
             bug.remove();
-            gameLoss();
         }else  {
             carrot.remove();
             count++;
@@ -81,31 +85,32 @@ function removeImg() {
 function gameWin() {
     const rePlayBtn = document.querySelector(".game__replay");
     const gameWinScreen = document.querySelector(".game__win");
-    
+    const gameCheck = document.querySelector(".game__check");
+
+    gameWinScreen.classList.add('active');
+
     rePlayBtn.addEventListener('click', () => {
         gameWinScreen.classList.remove('active');
         count = 0;
         gameCheck.innerHTML = count;
         pauseBtn.remove();
-        
         gameStart();
     });
 }
 
 
-function gameLoss() {
-    const gameLossScreen = document.querySelector(".game__loss");
-    gameLossScreen.classList.add('active');
+// function gameLoss() {
+//     const gameLossScreen = document.querySelector(".game__loss");
+//     gameLossScreen.classList.add('active');
     
-    rePlayBtn.addEventListener('click', () => {
-        gameWinScreen.classList.remove('active');
-        count = 0;
-        gameCheck.innerHTML = count;
-        pauseBtn.remove();
-
-        gameStart();
-    });
-}
+//     rePlayBtn.addEventListener('click', () => {
+//         gameWinScreen.classList.remove('active');
+//         count = 0;
+//         gameCheck.innerHTML = count;
+//         pauseBtn.remove();
+//         gameStart();
+//     });
+// }
 
 //Timer
 function timer() {

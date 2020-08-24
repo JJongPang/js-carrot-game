@@ -13,35 +13,26 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <section class="carrot__game">
-        <header class="game__header">
-                <button class="game__start__btn">
-                    <i class="fas fa-play"></i>
-                </button>
-                <h2 class="game__timeout">
-                    00:00
-                </h2>
-                <h2 class="game__check">
-                    0
-                </h2>
-        </header>
-        <main class="game__main">
-            <div class="game__position"></div>
-            <div class="game__win">
-                <button class="game__replay">
-                    <i class="fas fa-redo-alt"></i>   
-                </button>
-                <h1 class="replay__title">Replay?</h1>
-            </div>
-            <div class="game__loss">
-                <button class="game__replay">
-                    <i class="fas fa-redo-alt"></i>   
-                </button>
-                <h1 class="replay__title">YOU LOST</h1>
-            </div>
-        </main>
-    </section>
+  <section class="game">
+      <header class="game__header">
+          <button class="game__button">
+              <i class="fas fa-play"></i>
+          </button>
+          <span class="game__timer">0:0</span>
+          <span class="game__score">0</span>
+      </header>
+      <section class="game__field">
 
-    <script src="app.js"></script>
+      </section>
+  </section>
+  <section class="pop-up pop-up--hide">
+      <button class="pop-up___refresh">
+          <i class="fas fa-redo"></i>
+      </button>
+      <span class="pop-up__message">Hello</span>
+  </section>
+
+
+  <script src="app.js"></script>
 </body>
 </html>
