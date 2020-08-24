@@ -1,5 +1,6 @@
 body {
     text-align: center;
+    background-color: black;
 }
 
 button {
@@ -99,4 +100,14 @@ button {
 .pop-up__message {
     display: block;
     font-size: 38px;
+}
+
+.carrot,
+.bug {
+    transition: transform 100ms ease-in;
+}
+
+.carrot:hover,
+.bug:hover {
+    transform: scale(1.1);
 }
