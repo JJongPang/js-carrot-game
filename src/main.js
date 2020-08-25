@@ -1,6 +1,7 @@
 'use strict'
 import PopUp from './popup.js';
 import Field from './field.js';
+import * as sound from './sound.js';
 
 // const field = document.querySelector('.game__field');
 // const fieldRect = field.getBoundingClientRect();
@@ -14,10 +15,10 @@ const gameScore = document.querySelector('.game__score');
 // const popUpRefresh = document.querySelector('.pop-up__refresh');
 
 // const carrotSound = new Audio('./sound/carrot_pull.mp3');
-const bugSound = new Audio('./sound/bug_pull.mp3');
-const bgSound = new Audio('./sound/bg.mp3');
-const winSound = new Audio('./sound/game_win.mp3');
-const alertSound = new Audio('./sound/alert.wav');
+// const bugSound = new Audio('./sound/bug_pull.mp3');
+// const bgSound = new Audio('./sound/bg.mp3');
+// const winSound = new Audio('./sound/game_win.mp3');
+// const alertSound = new Audio('./sound/alert.wav');
 
 let started = false;
 let score = 0;
@@ -78,7 +79,7 @@ function startGame() {
     showStopButton();
     showTimerAndScore();
     startGmaeTimer();
-    playSound(bgSound);
+    sound.playBg();
 }
 
 //stop game
@@ -88,8 +89,10 @@ function stopGame() {
     hideGameButton();
     gameFinishBanner.showWidthText('REPLAY?');
     // showPopUpWidthText();
-    playSound(alertSound);
-    stopSound(bgSound);
+    sound.playAlert();
+    sound.stopBg();
+    // playSound(alertSound);
+    // stopSound(bgSound);
 }
 
 //finish game
@@ -97,12 +100,15 @@ function finishGame(win) {
     started = false;
     hideGameButton();
     if(win) {
-        playSound(winSound);
+        sound.playWin();
+        //playSound(winSound);
     }else {
-        playSound(bugSound);
+        sound.playBug();
+        //playSound(bugSound);
     }
     stopGameTimer();
-    stopSound(bgSound);
+    sound.stopBg();
+    //stopSound(bgSound);
     gameFinishBanner.showWidthText(win ? 'YOU WON' : 'YOU LOST')
     // showPopUpWidthText(win ? 'YOU WON' : 'YOU LOST');
 }
@@ -169,14 +175,14 @@ function initGame() {
 }
 
 //sound
-function playSound(sound) {
-    sound.currentTime = 0;
-    sound.play();
-}
+// function playSound(sound) {
+//     sound.currentTime = 0;
+//     sound.play();
+// }
 
-function stopSound(sound) {
-    sound.pause();
-}
+// function stopSound(sound) {
+//     sound.pause();
+// }
 
 //innerText score
 function updateScoreBoard() {
