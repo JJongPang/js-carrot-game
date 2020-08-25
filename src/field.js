@@ -9,6 +9,10 @@ export default class Field {
         this.bugCount = bugCount;
         this.field = document.querySelector('.game__field');
         this.fieldRect = this.field.getBoundingClientRect();
+
+        //this binding(https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Function/bind)
+        //1.this.onClick = this.onClick.bind(this);
+        //2.this.field.addEventListener('click', (event) => this.onClick(event));
         this.field.addEventListener('click', this.onClick);
     }
 
@@ -44,7 +48,8 @@ export default class Field {
         }
     }       
 
-    onClick(event) {
+    //this binding
+    onClick = event => {
         const target = event.target;
         if(target.matches('.carrot')) {
             target.remove();
