@@ -61,12 +61,6 @@ export default class Field {
     }
 }
 
-//sound
-// function playSound(sound) {
-//     sound.currentTime = 0;
-//     sound.play();
-// }
-            
 //Random item
 function randomNumber(min, max) {
     return Math.random() * (max - min) + min;

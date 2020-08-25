@@ -2,7 +2,33 @@
 import Field from './field.js';
 import * as sound from './sound.js';
 
-export default class Game {
+//Builder Pattern
+export default class GameBuilder {
+    gameDuration(duration) {
+        this.gameDuration = duration;
+        return this;
+    }
+
+    carrotCount(num) {
+        this.carrotCount = num;
+        return this;
+    }
+
+    bugCount(num) {
+        this.bugCount = num;
+        return this;
+    }
+
+    build() {
+        return new Game(
+            this.gameDuration,
+            this.carrotCount,
+            this.bugCount    
+        );
+    }
+}
+
+class Game {
     constructor(gameDuration, carrotCount, bugCount) {
         this.gameDuration = gameDuration;
         this.carrotCount = carrotCount;
@@ -36,13 +62,10 @@ export default class Game {
         if(item === 'carrot') {
             this.score++;
             this.updateScoreBoard();
-            //updateScoreBoard();
         if(this.score === this.carrotCount) {
             this.finish(true)
         }
         }else if(item === 'bug') {
-            // gameStart.stopGameTimer();
-            //stopGameTimer();
             this.finish(false);
         }
     }
@@ -59,9 +82,6 @@ export default class Game {
         this.showStopButton();
         this.showTimerAndScore();
         this.startGameTimer();
-    //showStopButton();
-    // showTimerAndScore();
-    // startGmaeTimer();
         sound.playBg();
 }
     //stop game
@@ -69,15 +89,9 @@ export default class Game {
         this.started = false;
         this.stopGameTimer();
         this.hideGameButton();
-        // stopGameTimer();
-        // hideGameButton();
-        //this.gameFinishBanner.showWidthText('REPLAY?');
-        // showPopUpWidthText();
         sound.playAlert();
         sound.stopBg();
         this.onGameStop && this.onGameStop('cancel');
-        // playSound(alertSound);
-        // stopSound(bgSound);
     }
     //finish game
     finish(win) {
@@ -91,11 +105,7 @@ export default class Game {
             sound.playBug();
         }
         this.stopGameTimer();
-        //stopGameTimer();
         sound.stopBg();
-        //stopSound(bgSound);
-        //gameFinishBanner.showWidthText(win ? 'YOU WON' : 'YOU LOST')
-        // showPopUpWidthText(win ? 'YOU WON' : 'YOU LOST');
         this.onGameStop && this.onGameStop(win ? 'win' : 'lose');
     } 
     //change stop button
@@ -149,60 +159,7 @@ export default class Game {
     //item init field
     initGame() {
         this.score = 0;
-    // field.innerHTML = '';
         this.gameScore.innerText = this.carrotCount;
         this.gameField.init(); 
-    // addItem('carrot', CARROT_COUNT, 'img/carrot.png');
-    // addItem('bug', BUG_COUNT, 'img/bug.png');
     }
 }
-
-//change stop button
-// function showStopButton() {
-//     const icon = gameBtn.querySelector('.fas');
-//     icon.classList.add('fa-stop');
-//     icon.classList.remove('fa-play');
-//     gameBtn.style.visibility = 'visible';
-// }
-
-//stop button hidden
-// function hideGameButton() {
-//     gameBtn.style.visibility = 'hidden';
-// }
-
-//view : timer, score style setting
-// function showTimerAndScore() {
-//     gameTimer.style.visibility = 'visible';
-//     gameScore.style.visibility = 'visible';
-// }
-
-//GAME_DURATION 
-// function startGmaeTimer() {
-//     let remainingTimeSec = GAME_DURATION_SEC;
-//     updateTimerText(remainingTimeSec);
-//     timer = setInterval(() => {
-//         if(remainingTimeSec <= 0) {
-//             clearInterval(timer);
-//             finishGame(CARROT_COUNT === score);
-//             return;
-//         }
-//         updateTimerText(--remainingTimeSec);
-//     }, 1000);
-// }
-
-//stop timer
-// function stopGameTimer() {
-//     clearInterval(timer);
-// }
-
-//innerText timer
-// function updateTimerText(time) {
-//     const minutes = Math.floor(time / 60);
-//     const seconds = time % 60;
-//     gameTimer.innerHTML = `${minutes}:${seconds}`;
-// }
-
-//innerText score
-// function updateScoreBoard() {
-//     gameScore.innerText = CARROT_COUNT - score;
-// }
